@@ -47,7 +47,7 @@ public class WebSecurity {
 
 
     @Bean
-    public SecurityFilterChain securityFilterChainClient(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authorize) -> authorize
                         .antMatchers("/api/auth/client/*").permitAll()
                         .anyRequest().authenticated()
@@ -67,7 +67,7 @@ public class WebSecurity {
         return http.build();
     }
 
-    @Bean
+   @Bean
     public SecurityFilterChain securityFilterChainWorker(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authorize) -> authorize
                         .antMatchers("/api/auth/worker/*").permitAll()

@@ -12,6 +12,10 @@ spring:
     mongodb:
       uri: "mongodb+srv://tesis:tesis@cluster0.hccq1nc.mongodb.net/Users"
 
+logging:
+  level:
+    org.springframework.security: DEBUG
+
 
 
 

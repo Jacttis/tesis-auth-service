@@ -28,16 +28,16 @@ public class KeyUtils {
     @Autowired
     Environment environment;
 
-    @Value("access-token-private")
+    @Value("${access-token.private}")
     private String accessTokenPrivateKeyPath;
 
-    @Value("access-token-public")
+    @Value("${access-token.public}")
     private String accessTokenPublicKeyPath;
 
-    @Value("refresh-token-private")
+    @Value("${refresh-token.private}")
     private String refreshTokenPrivateKeyPath;
 
-    @Value("refresh-token-public")
+    @Value("${refresh-token.public}")
     private String refreshTokenPublicKeyPath;
 
     private KeyPair accessTokenKeyPair;
