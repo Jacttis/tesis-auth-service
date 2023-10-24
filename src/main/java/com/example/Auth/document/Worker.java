@@ -1,9 +1,6 @@
 package com.example.Auth.document;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +13,7 @@ import java.util.Collections;
 @Data
 @RequiredArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Worker implements UserDetails {
     @Id
     private String email;
@@ -30,6 +28,15 @@ public class Worker implements UserDetails {
     @NonNull
     private Double longitude;
     private String picture;
+
+    public Worker(String email, @NonNull String password, @NonNull String name, @NonNull Double latitude, @NonNull Double longitude) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        avgRaiting =  0f;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -57,7 +64,7 @@ public class Worker implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override

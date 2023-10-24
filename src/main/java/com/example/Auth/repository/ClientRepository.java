@@ -1,4 +1,4 @@
-package repository;
+package com.example.Auth.repository;
 
 import com.example.Auth.document.Client;
 import org.springframework.data.mongodb.repository.MongoRepository;

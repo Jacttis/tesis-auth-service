@@ -23,6 +23,14 @@ public class Client implements UserDetails {
     private String email;
     @NonNull
     private String password;
+    @NonNull
+    private String address;
+    @NonNull
+    private Double latitude;
+    @NonNull
+    private Double longitude;
+    @NonNull
+    private String name;
 
 
     @Override

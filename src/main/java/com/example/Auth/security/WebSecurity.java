@@ -26,7 +26,6 @@ import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthen
 import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import repository.ClientRepository;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -48,7 +47,8 @@ public class WebSecurity {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((authorize) -> authorize
+        http.antMatcher("/api/auth/client/**")
+                .authorizeHttpRequests((authorize) -> authorize
                         .antMatchers("/api/auth/client/*").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -67,9 +67,11 @@ public class WebSecurity {
         return http.build();
     }
 
-   @Bean
+    @Bean
     public SecurityFilterChain securityFilterChainWorker(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((authorize) -> authorize
+        log.info("Here");
+        http.antMatcher("/api/auth/worker/**")
+                .authorizeHttpRequests((authorize) -> authorize
                         .antMatchers("/api/auth/worker/*").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -87,6 +89,7 @@ public class WebSecurity {
 
         return http.build();
     }
+
     @Bean
     @Primary
     JwtDecoder jwtAccessTokenDecoder() {
