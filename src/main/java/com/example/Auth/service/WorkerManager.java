@@ -34,8 +34,7 @@ public class WorkerManager implements UserDetailsManager {
 
         WorkerMessage workerMessage = new WorkerMessage();
         workerMessage.setWorkerDTO(WorkerDTO.from((Worker) worker));
-
-       // workerMessagePublisher.publishMessage(workerMessage);
+        workerMessagePublisher.publishMessage(workerMessage);
 
 
     }
