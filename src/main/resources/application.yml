@@ -6,6 +6,8 @@ refresh-token:
   public: ${REFRESH_TOKEN_PUBLIC_KEY_PATH}
 
 spring:
+  rabbitmq:
+    addresses: localhost:5672
   profiles:
     active: dev
   data:

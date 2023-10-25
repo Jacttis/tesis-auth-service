@@ -2,25 +2,64 @@ package com.example.Auth.web;
 
 import com.example.Auth.document.Client;
 import com.example.Auth.dto.ClientDTO;
+import com.example.Auth.service.ClientManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import repository.ClientRepository;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import com.example.Auth.repository.ClientRepository;
+
+import java.lang.reflect.Field;
 
 @RestController
 @RequestMapping("/api/clients")
 public class ClientController {
     @Autowired
     ClientRepository clientRepository;
+    @Autowired
+    ClientManager clientManager;
 
     @GetMapping("/{email}")
     @PreAuthorize("#client.email == #email")
     public ResponseEntity client(@AuthenticationPrincipal Client client, @PathVariable String email) {
         return ResponseEntity.ok(ClientDTO.from(clientRepository.findByEmail(email).orElseThrow()));
+    }
+
+    @PatchMapping("updateClient/{email}")
+    @PreAuthorize("#client.email == #email")
+    public ResponseEntity<?> updateClient(@AuthenticationPrincipal Client client,
+                                          @PathVariable String email,
+                                          @RequestBody ClientDTO clientDTO) {
+
+        Client existingClient = clientRepository.findByEmail(email)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found"));
+
+        try {
+            for (Field field : ClientDTO.class.getDeclaredFields()) {
+                if(field.getName().equals("email")){
+                    continue;
+                }
+                field.setAccessible(true);
+                Object value = null;
+
+                value = field.get(clientDTO);
+
+                if (value != null) {
+                    Field targetField = Client.class.getDeclaredField(field.getName());
+                    targetField.setAccessible(true);
+                    targetField.set(existingClient, value);
+                }
+            }
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad body passed");
+        }
+
+
+        clientManager.updateUser(existingClient);
+
+        return ResponseEntity.ok().build();
     }
 }
