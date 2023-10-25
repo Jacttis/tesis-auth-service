@@ -8,6 +8,7 @@ import com.example.Auth.service.ClientManager;
 import com.example.Auth.service.WorkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -72,7 +73,7 @@ public class AuthController {
             authentication = daoAuthenticationProviderClient.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(loginDTO.getEmail(), loginDTO.getPassword()));
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error al autenticar: " + e.getMessage());
         }
         return ResponseEntity.ok(tokenGenerator.createTokenClient(authentication));
     }
@@ -105,7 +106,7 @@ public class AuthController {
             authentication = daoAuthenticationProviderWorker.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(loginDTO.getEmail(), loginDTO.getPassword()));
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error al autenticar: " + e.getMessage());
         }
         return ResponseEntity.ok(tokenGenerator.createTokenWorker(authentication));
     }

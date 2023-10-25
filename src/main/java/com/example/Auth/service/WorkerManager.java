@@ -1,6 +1,10 @@
 package com.example.Auth.service;
 
+import com.example.Auth.config.amq.client.ClientMessagePublisher;
+import com.example.Auth.config.amq.worker.WorkerMessage;
+import com.example.Auth.config.amq.worker.WorkerMessagePublisher;
 import com.example.Auth.document.Worker;
+import com.example.Auth.dto.WorkerDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,16 +24,18 @@ public class WorkerManager implements UserDetailsManager {
     WorkerRepository workerRepository;
     @Autowired
     PasswordEncoder passwordEncoder;
+    @Autowired
+    WorkerMessagePublisher workerMessagePublisher;
 
     @Override
     public void createUser(UserDetails worker) {
         ((Worker) worker).setPassword(passwordEncoder.encode(worker.getPassword()));
         workerRepository.save((Worker) worker);
-/*
-        ClientMessage clientMessage = new ClientMessage();
-        clientMessage.setClient(ClientDTO.from((Worker) worker));
 
-        clientMessagePublisher.publishMessage(clientMessage);*/
+        WorkerMessage workerMessage = new WorkerMessage();
+        workerMessage.setWorkerDTO(WorkerDTO.from((Worker) worker));
+
+       // workerMessagePublisher.publishMessage(workerMessage);
 
 
     }
@@ -37,6 +43,11 @@ public class WorkerManager implements UserDetailsManager {
     @Override
     public void updateUser(UserDetails worker) {
         workerRepository.save((Worker) worker);
+
+        WorkerMessage workerMessage = new WorkerMessage();
+        workerMessage.setWorkerDTO(WorkerDTO.from((Worker) worker));
+
+        workerMessagePublisher.publishMessage(workerMessage);
 
     }
 

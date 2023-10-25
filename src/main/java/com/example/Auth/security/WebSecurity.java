@@ -1,6 +1,7 @@
 package com.example.Auth.security;
 
 import com.example.Auth.service.ClientManager;
+import com.example.Auth.service.WorkerManager;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -43,6 +44,8 @@ public class WebSecurity {
 
     @Autowired
     ClientManager clientManager;
+    @Autowired
+    WorkerManager workerManager;
 
 
     @Bean
@@ -154,7 +157,7 @@ public class WebSecurity {
     DaoAuthenticationProvider daoAuthenticationProviderWorker() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder);
-        provider.setUserDetailsService(clientManager);
+        provider.setUserDetailsService(workerManager);
         return provider;
     }
 }
