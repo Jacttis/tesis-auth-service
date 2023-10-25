@@ -48,7 +48,7 @@ public class MQConfig {
     }
 
     @Bean
-    @Qualifier("auth_search_delete_client_queue")
+    @Qualifier("auth_search_client_delete_queue")
     public Queue authSearchDeleteClientQueue() {
         return  new Queue(AUTH_SEARCH_CLIENT_DELETE_QUEUE);
     }
@@ -60,7 +60,7 @@ public class MQConfig {
     }
 
     @Bean
-    @Qualifier("auth_search_delete_worker_queue")
+    @Qualifier("auth_search_worker_delete_queue")
     public Queue authSearchDeleteWorkerQueue() {
         return  new Queue(AUTH_SEARCH_WORKER_DELETE_QUEUE);
     }
@@ -74,7 +74,7 @@ public class MQConfig {
     }
 
     @Bean
-    @Qualifier("auth_matching_delete_client_queue")
+    @Qualifier("auth_matching_client_delete_queue")
     public Queue authMatchingDeleteClientQueue() {
         return  new Queue(AUTH_MATCHING_CLIENT_DELETE_QUEUE);
     }
@@ -86,7 +86,7 @@ public class MQConfig {
     }
 
     @Bean
-    @Qualifier("auth_matching_delete_worker_queue")
+    @Qualifier("auth_matching_worker_delete_queue")
     public Queue authMatchingDeleteWorkerQueue() {
         return  new Queue(AUTH_MATCHING_WORKER_DELETE_QUEUE);
     }
@@ -100,7 +100,7 @@ public class MQConfig {
     }
 
     @Bean
-    @Qualifier("auth_review_delete_client_queue")
+    @Qualifier("auth_review_client_delete_queue")
     public Queue authReviewDeleteClientQueue() {
         return  new Queue(AUTH_REVIEW_CLIENT_DELETE_QUEUE);
     }
@@ -112,7 +112,7 @@ public class MQConfig {
     }
 
     @Bean
-    @Qualifier("auth_review_delete_worker_queue")
+    @Qualifier("auth_review_worker_delete_queue")
     public Queue authReviewDeleteWorkerQueue() {
         return  new Queue(AUTH_REVIEW_WORKER_DELETE_QUEUE);
     }
@@ -121,13 +121,14 @@ public class MQConfig {
 
     @Bean
     @Qualifier("client_exchange")
-    public TopicExchange clientExchange() {
-        return new TopicExchange(CLIENT_EXCHANGE);
+    public FanoutExchange clientExchange() {
+        return new FanoutExchange(CLIENT_EXCHANGE);
     }
 
-    @Bean@Qualifier("worker_exchange")
-    public TopicExchange workerExchange() {
-        return new TopicExchange(WORKER_EXCHANGE);
+    @Bean
+    @Qualifier("worker_exchange")
+    public FanoutExchange workerExchange() {
+        return new FanoutExchange(WORKER_EXCHANGE);
     }
 
     //Binding Auth to Search
@@ -140,7 +141,7 @@ public class MQConfig {
     }
 
     @Bean
-    public Binding bindingDeleteClient(@Qualifier("auth_search_delete_client_queue")Queue queue,@Qualifier("client_exchange") TopicExchange exchange) {
+    public Binding bindingDeleteClient(@Qualifier("auth_search_client_delete_queue")Queue queue,@Qualifier("client_exchange") TopicExchange exchange) {
         return BindingBuilder
                 .bind(queue)
                 .to(exchange)
@@ -156,7 +157,7 @@ public class MQConfig {
     }
 
     @Bean
-    public Binding bindingDeleteWorker(@Qualifier("auth_search_delete_worker_queue")Queue queue,@Qualifier("worker_exchange") TopicExchange exchange) {
+    public Binding bindingDeleteWorker(@Qualifier("auth_search_worker_delete_queue")Queue queue,@Qualifier("worker_exchange") TopicExchange exchange) {
         return BindingBuilder
                 .bind(queue)
                 .to(exchange)
@@ -174,7 +175,7 @@ public class MQConfig {
     }
 
     @Bean
-    public Binding bindingDeleteClientMatching(@Qualifier("auth_matching_delete_client_queue")Queue queue,@Qualifier("client_exchange") TopicExchange exchange) {
+    public Binding bindingDeleteClientMatching(@Qualifier("auth_matching_client_delete_queue")Queue queue,@Qualifier("client_exchange") TopicExchange exchange) {
         return BindingBuilder
                 .bind(queue)
                 .to(exchange)
@@ -190,7 +191,7 @@ public class MQConfig {
     }
 
     @Bean
-    public Binding bindingDeleteWorkerMatching(@Qualifier("auth_matching_delete_worker_queue")Queue queue,@Qualifier("worker_exchange") TopicExchange exchange) {
+    public Binding bindingDeleteWorkerMatching(@Qualifier("auth_matching_worker_delete_queue")Queue queue,@Qualifier("worker_exchange") TopicExchange exchange) {
         return BindingBuilder
                 .bind(queue)
                 .to(exchange)
@@ -208,7 +209,7 @@ public class MQConfig {
     }
 
     @Bean
-    public Binding bindingDeleteClientReview(@Qualifier("auth_review_delete_client_queue")Queue queue,@Qualifier("client_exchange") TopicExchange exchange) {
+    public Binding bindingDeleteClientReview(@Qualifier("auth_review_client_delete_queue")Queue queue,@Qualifier("client_exchange") TopicExchange exchange) {
         return BindingBuilder
                 .bind(queue)
                 .to(exchange)
@@ -224,7 +225,7 @@ public class MQConfig {
     }
 
     @Bean
-    public Binding bindingDeleteWorkerReview(@Qualifier("auth_review_delete_worker_queue")Queue queue,@Qualifier("worker_exchange") TopicExchange exchange) {
+    public Binding bindingDeleteWorkerReview(@Qualifier("auth_review_worker_delete_queue")Queue queue,@Qualifier("worker_exchange") TopicExchange exchange) {
         return BindingBuilder
                 .bind(queue)
                 .to(exchange)
