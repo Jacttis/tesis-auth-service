@@ -50,9 +50,9 @@ public class WebSecurity {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.antMatcher("/api/auth/client/**")
+        http.antMatcher("/auth/client/**")
                 .authorizeHttpRequests((authorize) -> authorize
-                        .antMatchers("/api/auth/client/*").permitAll()
+                        .antMatchers("/auth/client/*").permitAll()
                         .anyRequest().authenticated()
                 )
                 .csrf().disable()
@@ -72,10 +72,9 @@ public class WebSecurity {
 
     @Bean
     public SecurityFilterChain securityFilterChainWorker(HttpSecurity http) throws Exception {
-        log.info("Here");
-        http.antMatcher("/api/auth/worker/**")
+        http.antMatcher("/auth/worker/**")
                 .authorizeHttpRequests((authorize) -> authorize
-                        .antMatchers("/api/auth/worker/*").permitAll()
+                        .antMatchers("/auth/worker/*").permitAll()
                         .anyRequest().authenticated()
                 )
                 .csrf().disable()
