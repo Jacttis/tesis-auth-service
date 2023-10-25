@@ -121,14 +121,14 @@ public class MQConfig {
 
     @Bean
     @Qualifier("client_exchange")
-    public FanoutExchange clientExchange() {
-        return new FanoutExchange(CLIENT_EXCHANGE);
+    public TopicExchange clientExchange() {
+        return new TopicExchange(CLIENT_EXCHANGE);
     }
 
     @Bean
     @Qualifier("worker_exchange")
-    public FanoutExchange workerExchange() {
-        return new FanoutExchange(WORKER_EXCHANGE);
+    public TopicExchange workerExchange() {
+        return new TopicExchange(WORKER_EXCHANGE);
     }
 
     //Binding Auth to Search
