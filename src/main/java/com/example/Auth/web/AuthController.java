@@ -24,7 +24,7 @@ import java.text.MessageFormat;
 import java.util.Collections;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("auth")
 public class AuthController {
 
     @Autowired
