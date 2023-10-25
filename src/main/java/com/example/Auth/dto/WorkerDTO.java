@@ -13,9 +13,10 @@ public class WorkerDTO {
     private Double latitude;
     private Double longitude;
     private String name;
+    private String phoneNumber;
 
     public static WorkerDTO from(Worker worker) {
-        return builder().email(worker.getEmail()).build();
+        return builder().email(worker.getEmail()).address(worker.getAddress()).latitude(worker.getLatitude()).longitude(worker.getLongitude()).phoneNumber(worker.getPhoneNumber()).name(worker.getName()).build();
     }
 
 }

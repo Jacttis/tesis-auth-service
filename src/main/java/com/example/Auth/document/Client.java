@@ -31,6 +31,8 @@ public class Client implements UserDetails {
     private Double longitude;
     @NonNull
     private String name;
+    @NonNull
+    private String phoneNumber;
 
 
     @Override

@@ -22,20 +22,23 @@ public class Worker implements UserDetails {
     @NonNull
     private String name;
     @NonNull
-    private Float avgRaiting;
+    private String phoneNumber;
+    @NonNull
+    private String address;
     @NonNull
     private Double latitude;
     @NonNull
     private Double longitude;
     private String picture;
 
-    public Worker(String email, @NonNull String password, @NonNull String name, @NonNull Double latitude, @NonNull Double longitude) {
+    public Worker(String email, @NonNull String password, @NonNull String name, @NonNull Double latitude, @NonNull Double longitude, @NonNull String address, @NonNull String phoneNumber) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
-        avgRaiting =  0f;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
     }
 
     @Override

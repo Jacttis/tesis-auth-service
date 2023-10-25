@@ -55,7 +55,7 @@ public class AuthController {
     @PostMapping("/client/register")
     @PreAuthorize("permitAll()")
     public ResponseEntity clientRegister(@RequestBody SignupDTO signupDTO) {
-        Client client = new Client( signupDTO.getEmail(), signupDTO.getPassword(), signupDTO.getAddress(), signupDTO.getLatitude(), signupDTO.getLongitude(),signupDTO.getName());
+        Client client = new Client( signupDTO.getEmail(), signupDTO.getPassword(), signupDTO.getAddress(), signupDTO.getLatitude(), signupDTO.getLongitude(),signupDTO.getName(), signupDTO.getPhoneNumber());
         clientManager.createUser(client);
 
         Authentication authentication = UsernamePasswordAuthenticationToken.authenticated(client, signupDTO.getPassword(), Collections.emptyList());
@@ -88,7 +88,7 @@ public class AuthController {
     @PostMapping("/worker/register")
     @PreAuthorize("permitAll()")
     public ResponseEntity workerRegister(@RequestBody SignupDTO signupDTO) {
-        Worker worker = new Worker( signupDTO.getEmail(), signupDTO.getPassword(),signupDTO.getName(),signupDTO.getLatitude(),signupDTO.getLongitude());
+        Worker worker = new Worker( signupDTO.getEmail(), signupDTO.getPassword(),signupDTO.getName(),signupDTO.getLatitude(),signupDTO.getLongitude(), signupDTO.getAddress(), signupDTO.getPhoneNumber());
         workerManager.createUser(worker);
 
         Authentication authentication = UsernamePasswordAuthenticationToken.authenticated(worker, signupDTO.getPassword(), Collections.emptyList());

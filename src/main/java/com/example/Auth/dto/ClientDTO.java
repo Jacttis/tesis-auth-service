@@ -13,8 +13,9 @@ public class ClientDTO {
     private Double latitude;
     private Double longitude;
     private String name;
+    private String phoneNumber;
 
     public static ClientDTO from(Client client) {
-        return builder().email(client.getEmail()).build();
+        return builder().email(client.getEmail()).address(client.getAddress()).latitude(client.getLatitude()).longitude(client.getLongitude()).name(client.getName()).build();
     }
 }
