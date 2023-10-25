@@ -17,4 +17,5 @@ public class WorkerDTO {
     public static WorkerDTO from(Worker worker) {
         return builder().email(worker.getEmail()).build();
     }
+
 }

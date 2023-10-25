@@ -11,16 +11,16 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.server.resource.BearerTokenAuthenticationToken;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationProvider;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.MessageFormat;
 import java.util.Collections;
 
 @RestController
@@ -97,6 +97,11 @@ public class AuthController {
 
     }
 
+    @PostMapping("/client/authenticateUser")
+    public ResponseEntity getAuthenticateClient(@AuthenticationPrincipal Client client) {
+        return ResponseEntity.ok(new EmailDTO(client.getEmail()));
+    }
+
     @PostMapping("/worker/login")
     @PreAuthorize("permitAll()")
     public ResponseEntity workerLogin(@RequestBody LoginDTO loginDTO) {
@@ -116,5 +121,11 @@ public class AuthController {
         Authentication authentication = jwtAuthenticationProviderWorker.authenticate(new BearerTokenAuthenticationToken(tokenDTO.getRefreshToken()));
 
         return ResponseEntity.ok(tokenGenerator.createTokenWorker(authentication));
+    }
+
+
+    @PostMapping("/worker/authenticateUser")
+    public ResponseEntity getAuthenticateWorker(@AuthenticationPrincipal Worker worker) {
+        return ResponseEntity.ok(new EmailDTO(worker.getEmail()));
     }
 }
