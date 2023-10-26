@@ -48,7 +48,7 @@ public class TokenGenerator {
         JwtClaimsSet claimsSet = JwtClaimsSet.builder()
                 .issuer("myApp")
                 .issuedAt(now)
-                .expiresAt(now.plus(30, ChronoUnit.DAYS))
+                .expiresAt(now.plus(1, ChronoUnit.DAYS))
                 .subject(user.getId())
                 .build();
 
@@ -61,7 +61,7 @@ public class TokenGenerator {
         JwtClaimsSet claimsSet = JwtClaimsSet.builder()
                 .issuer("myApp")
                 .issuedAt(now)
-                .expiresAt(now.plus(5, ChronoUnit.MINUTES))
+                .expiresAt(now.plus(1, ChronoUnit.HOURS))
                 .subject(user.getId())
                 .build();
 
@@ -75,7 +75,7 @@ public class TokenGenerator {
         JwtClaimsSet claimsSet = JwtClaimsSet.builder()
                 .issuer("myApp")
                 .issuedAt(now)
-                .expiresAt(now.plus(30, ChronoUnit.DAYS))
+                .expiresAt(now.plus(1, ChronoUnit.DAYS))
                 .subject(user.getId())
                 .build();
 
@@ -92,6 +92,7 @@ public class TokenGenerator {
         TokenDTO tokenDTO = new TokenDTO();
         tokenDTO.setUserId(user.getId());
         tokenDTO.setAccessToken(createAccessTokenClient(authentication));
+        tokenDTO.setRole("client");
 
         String refreshToken;
         if (authentication.getCredentials() instanceof Jwt jwt) {
@@ -122,6 +123,7 @@ public class TokenGenerator {
         TokenDTO tokenDTO = new TokenDTO();
         tokenDTO.setUserId(user.getId());
         tokenDTO.setAccessToken(createAccessTokenWorker(authentication));
+        tokenDTO.setRole("worker");
 
         String refreshToken;
         if (authentication.getCredentials() instanceof Jwt jwt) {
