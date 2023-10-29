@@ -6,9 +6,11 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.sql.Date;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -33,6 +35,9 @@ public class Client implements UserDetails {
     private String name;
     @NonNull
     private String phoneNumber;
+    private String picture;
+    @DateTimeFormat
+    private Date birthDate;
 
 
     @Override

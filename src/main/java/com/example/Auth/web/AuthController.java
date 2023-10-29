@@ -55,7 +55,10 @@ public class AuthController {
     @PostMapping("/client/register")
     @PreAuthorize("permitAll()")
     public ResponseEntity clientRegister(@RequestBody SignupDTO signupDTO) {
-        Client client = new Client( signupDTO.getEmail(), signupDTO.getPassword(), signupDTO.getAddress(), signupDTO.getLatitude(), signupDTO.getLongitude(),signupDTO.getName(), signupDTO.getPhoneNumber());
+        Client client = new Client(signupDTO.getEmail(), signupDTO.getPassword(), signupDTO.getAddress(), signupDTO.getLatitude(), signupDTO.getLongitude(), signupDTO.getName(), signupDTO.getPhoneNumber());
+        if (clientManager.userExists(signupDTO.getEmail())) {
+           return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already in use");
+        }
         clientManager.createUser(client);
 
         Authentication authentication = UsernamePasswordAuthenticationToken.authenticated(client, signupDTO.getPassword(), Collections.emptyList());
@@ -85,21 +88,26 @@ public class AuthController {
         return ResponseEntity.ok(tokenGenerator.createTokenClient(authentication));
     }
 
+    @PostMapping("/client/authenticateUser")
+    @PreAuthorize("@clientManager.userExists(authentication.principal.email)")
+    public ResponseEntity getAuthenticateClient(@AuthenticationPrincipal Client client) {
+        return ResponseEntity.ok(new EmailDTO(client.getEmail()));
+    }
+
     @PostMapping("/worker/register")
     @PreAuthorize("permitAll()")
     public ResponseEntity workerRegister(@RequestBody SignupDTO signupDTO) {
-        Worker worker = new Worker( signupDTO.getEmail(), signupDTO.getPassword(),signupDTO.getName(),signupDTO.getLatitude(),signupDTO.getLongitude(), signupDTO.getAddress(), signupDTO.getPhoneNumber());
+        Worker worker = new Worker(signupDTO.getEmail(), signupDTO.getPassword(), signupDTO.getName(), signupDTO.getLatitude(), signupDTO.getLongitude(), signupDTO.getAddress(), signupDTO.getPhoneNumber());
+
+        if (workerManager.userExists(signupDTO.getEmail())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already in use");
+        }
         workerManager.createUser(worker);
 
         Authentication authentication = UsernamePasswordAuthenticationToken.authenticated(worker, signupDTO.getPassword(), Collections.emptyList());
 
         return ResponseEntity.ok(tokenGenerator.createTokenWorker(authentication));
 
-    }
-
-    @PostMapping("/client/authenticateUser")
-    public ResponseEntity getAuthenticateClient(@AuthenticationPrincipal Client client) {
-        return ResponseEntity.ok(new EmailDTO(client.getEmail()));
     }
 
     @PostMapping("/worker/login")
@@ -125,6 +133,7 @@ public class AuthController {
 
 
     @PostMapping("/worker/authenticateUser")
+    @PreAuthorize("@workerManager.userExists(authentication.principal.email)")
     public ResponseEntity getAuthenticateWorker(@AuthenticationPrincipal Worker worker) {
         return ResponseEntity.ok(new EmailDTO(worker.getEmail()));
     }
