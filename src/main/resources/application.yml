@@ -7,7 +7,7 @@ refresh-token:
 
 spring:
   rabbitmq:
-    addresses: localhost:5672
+    addresses: ${RABBIT_HOST}:${RABBIT_PORT}
   profiles:
     active: dev
   data:
