@@ -18,6 +18,6 @@ public class WorkerMessage {
     private String messageId;
     private String message;
     private Date messageDate;
-    private WorkerDTO workerDTO;
+    private WorkerDTO worker;
 
 }

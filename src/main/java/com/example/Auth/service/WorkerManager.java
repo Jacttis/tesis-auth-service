@@ -33,7 +33,7 @@ public class WorkerManager implements UserDetailsManager {
         workerRepository.save((Worker) worker);
 
         WorkerMessage workerMessage = new WorkerMessage();
-        workerMessage.setWorkerDTO(WorkerDTO.from((Worker) worker));
+        workerMessage.setWorker(WorkerDTO.from((Worker) worker));
         workerMessagePublisher.publishMessage(workerMessage);
 
 
@@ -44,7 +44,7 @@ public class WorkerManager implements UserDetailsManager {
         workerRepository.save((Worker) worker);
 
         WorkerMessage workerMessage = new WorkerMessage();
-        workerMessage.setWorkerDTO(WorkerDTO.from((Worker) worker));
+        workerMessage.setWorker(WorkerDTO.from((Worker) worker));
 
         workerMessagePublisher.publishMessage(workerMessage);
 
