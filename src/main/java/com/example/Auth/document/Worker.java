@@ -1,5 +1,6 @@
 package com.example.Auth.document;
 
+import com.mongodb.lang.Nullable;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 
 @Document
 @Data
@@ -29,9 +31,17 @@ public class Worker implements UserDetails {
     private Double latitude;
     @NonNull
     private Double longitude;
+    @Nullable
     private String picture;
-
-    public Worker(String email, @NonNull String password, @NonNull String name, @NonNull Double latitude, @NonNull Double longitude, @NonNull String address, @NonNull String phoneNumber) {
+    @Nullable
+    private String description;
+    @NonNull
+    private Date birthDate;
+    @Nullable
+    private String certificate;
+    @NonNull
+    private String profession;
+    public Worker(String email, @NonNull String password, @NonNull String name, @NonNull Double latitude, @NonNull Double longitude, @NonNull String address, @NonNull String phoneNumber, @NonNull String profession) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -39,6 +49,7 @@ public class Worker implements UserDetails {
         this.longitude = longitude;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.profession = profession;
     }
 
     @Override

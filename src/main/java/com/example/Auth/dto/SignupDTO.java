@@ -3,6 +3,8 @@ package com.example.Auth.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 public class SignupDTO {
@@ -13,5 +15,7 @@ public class SignupDTO {
     private String name;
     private String address;
     private String phoneNumber;
+    private Date date;
+    private String profession;
 
 }

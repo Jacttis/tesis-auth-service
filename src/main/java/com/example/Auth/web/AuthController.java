@@ -55,8 +55,8 @@ public class AuthController {
     @PostMapping("/client/register")
     @PreAuthorize("permitAll()")
     public ResponseEntity clientRegister(@RequestBody SignupDTO signupDTO) {
-        Client client = new Client(signupDTO.getEmail(), signupDTO.getPassword(), signupDTO.getAddress(), signupDTO.getLatitude(), signupDTO.getLongitude(), signupDTO.getName(), signupDTO.getPhoneNumber());
-        if (clientManager.userExists(signupDTO.getEmail())) {
+        Client client = new Client(signupDTO.getEmail(), signupDTO.getPassword(), signupDTO.getAddress(), signupDTO.getLatitude(), signupDTO.getLongitude(), signupDTO.getName(), signupDTO.getPhoneNumber(),signupDTO.getDate());
+        if (clientManager.userExists(signupDTO.getEmail()) || workerManager.userExists(signupDTO.getEmail())) {
            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already in use");
         }
         clientManager.createUser(client);
@@ -97,9 +97,9 @@ public class AuthController {
     @PostMapping("/worker/register")
     @PreAuthorize("permitAll()")
     public ResponseEntity workerRegister(@RequestBody SignupDTO signupDTO) {
-        Worker worker = new Worker(signupDTO.getEmail(), signupDTO.getPassword(), signupDTO.getName(), signupDTO.getLatitude(), signupDTO.getLongitude(), signupDTO.getAddress(), signupDTO.getPhoneNumber());
+        Worker worker = new Worker(signupDTO.getEmail(), signupDTO.getPassword(), signupDTO.getName(), signupDTO.getLatitude(), signupDTO.getLongitude(), signupDTO.getAddress(), signupDTO.getPhoneNumber(), signupDTO.getProfession());
 
-        if (workerManager.userExists(signupDTO.getEmail())) {
+        if (clientManager.userExists(signupDTO.getEmail()) || workerManager.userExists(signupDTO.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already in use");
         }
         workerManager.createUser(worker);

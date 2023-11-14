@@ -1,5 +1,6 @@
 package com.example.Auth.document;
 
+import com.mongodb.lang.Nullable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -10,7 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -35,8 +36,10 @@ public class Client implements UserDetails {
     private String name;
     @NonNull
     private String phoneNumber;
+    @Nullable
     private String picture;
     @DateTimeFormat
+    @NonNull
     private Date birthDate;
 
 

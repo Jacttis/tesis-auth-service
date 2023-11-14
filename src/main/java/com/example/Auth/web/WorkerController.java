@@ -5,6 +5,7 @@ import com.example.Auth.dto.WorkerDTO;
 import com.example.Auth.repository.WorkerRepository;
 import com.example.Auth.service.WorkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,7 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.lang.reflect.Field;
 
 @RestController
-@RequestMapping("/api/workers")
+@RequestMapping("/workers")
 public class WorkerController {
 
     @Autowired
@@ -23,16 +24,14 @@ public class WorkerController {
     @Autowired
     WorkerManager workerManager;
 
-    @GetMapping("/{email}")
-    @PreAuthorize("#worker.email == #email")
-    public ResponseEntity client(@AuthenticationPrincipal Worker worker, @PathVariable String email) {
+    @GetMapping("/getWorker")
+    public ResponseEntity worker(@AuthenticationPrincipal Worker worker, @RequestParam String email) {
         return ResponseEntity.ok(WorkerDTO.from(workerRepository.findByEmail(email).orElseThrow()));
     }
 
-    @PatchMapping("updateWorker/{email}")
-    @PreAuthorize("#worker.email == #email")
+    @PatchMapping("/updateWorker")
     public ResponseEntity<?> updateWorker(@AuthenticationPrincipal Worker worker,
-                                          @PathVariable String email,
+                                          @RequestParam String email,
                                           @RequestBody WorkerDTO workerDTO) {
 
         Worker existingWorker = workerRepository.findByEmail(email)
