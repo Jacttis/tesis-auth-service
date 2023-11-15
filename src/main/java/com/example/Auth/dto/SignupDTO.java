@@ -1,5 +1,6 @@
 package com.example.Auth.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,8 @@ public class SignupDTO {
     private String name;
     private String address;
     private String phoneNumber;
-    private Date date;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date birthDate;
     private String profession;
 
 }

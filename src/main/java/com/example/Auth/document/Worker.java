@@ -43,7 +43,7 @@ public class Worker implements UserDetails {
     private String certificate;
     @NonNull
     private String profession;
-    public Worker(String email, @NonNull String password, @NonNull String name, @NonNull Double latitude, @NonNull Double longitude, @NonNull String address, @NonNull String phoneNumber, @NonNull String profession) {
+    public Worker(String email, @NonNull String password, @NonNull String name, @NonNull Double latitude, @NonNull Double longitude, @NonNull String address, @NonNull String phoneNumber, @NonNull String profession, @NonNull @JsonFormat(pattern = "yyyy-MM-dd") Date birthDate) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -52,6 +52,7 @@ public class Worker implements UserDetails {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.profession = profession;
+        this.birthDate = birthDate;
     }
 
     @Override
