@@ -1,6 +1,7 @@
 package com.example.Auth.dto;
 
 import com.example.Auth.document.Client;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mongodb.lang.Nullable;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class ClientDTO {
     private String name;
     private String phoneNumber;
     private String picture;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
     public static ClientDTO from(Client client) {

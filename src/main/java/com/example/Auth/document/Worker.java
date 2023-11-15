@@ -1,5 +1,6 @@
 package com.example.Auth.document;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mongodb.lang.Nullable;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -36,6 +37,7 @@ public class Worker implements UserDetails {
     @Nullable
     private String description;
     @NonNull
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
     @Nullable
     private String certificate;

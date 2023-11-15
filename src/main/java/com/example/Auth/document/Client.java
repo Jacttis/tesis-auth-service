@@ -1,5 +1,6 @@
 package com.example.Auth.document;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mongodb.lang.Nullable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,8 +39,8 @@ public class Client implements UserDetails {
     private String phoneNumber;
     @Nullable
     private String picture;
-    @DateTimeFormat
     @NonNull
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
 

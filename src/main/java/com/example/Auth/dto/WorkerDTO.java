@@ -1,6 +1,7 @@
 package com.example.Auth.dto;
 
 import com.example.Auth.document.Worker;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class WorkerDTO {
     private String phoneNumber;
     private String picture;
     private String description;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
     private String certificate;
     private ProfessionDTO profession;
