@@ -16,7 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.lang.reflect.Field;
 
 @RestController
-@RequestMapping("/workers")
+@RequestMapping("auth/workers")
 public class WorkerController {
 
     @Autowired

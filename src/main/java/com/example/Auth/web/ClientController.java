@@ -17,7 +17,7 @@ import com.example.Auth.repository.ClientRepository;
 import java.lang.reflect.Field;
 
 @RestController
-@RequestMapping("/clients")
+@RequestMapping("auth/clients")
 public class ClientController {
     @Autowired
     ClientRepository clientRepository;
