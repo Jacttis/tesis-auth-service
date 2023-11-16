@@ -1,7 +1,9 @@
 package com.example.Auth.web;
 
 import com.example.Auth.document.Client;
+import com.example.Auth.document.Worker;
 import com.example.Auth.dto.ClientDTO;
+import com.example.Auth.dto.WorkerDTO;
 import com.example.Auth.service.ClientManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,23 +17,21 @@ import com.example.Auth.repository.ClientRepository;
 import java.lang.reflect.Field;
 
 @RestController
-@RequestMapping("/api/clients")
+@RequestMapping("/clients")
 public class ClientController {
     @Autowired
     ClientRepository clientRepository;
     @Autowired
     ClientManager clientManager;
 
-    @GetMapping("/{email}")
-    @PreAuthorize("#client.email == #email")
-    public ResponseEntity client(@AuthenticationPrincipal Client client, @PathVariable String email) {
+    @GetMapping("/getClient")
+    public ResponseEntity<?> client(@AuthenticationPrincipal Client client, @RequestParam String email) {
         return ResponseEntity.ok(ClientDTO.from(clientRepository.findByEmail(email).orElseThrow()));
     }
 
-    @PatchMapping("updateClient/{email}")
-    @PreAuthorize("#client.email == #email")
+    @PatchMapping("/updateClient")
     public ResponseEntity<?> updateClient(@AuthenticationPrincipal Client client,
-                                          @PathVariable String email,
+                                          @RequestParam String email,
                                           @RequestBody ClientDTO clientDTO) {
 
         Client existingClient = clientRepository.findByEmail(email)
