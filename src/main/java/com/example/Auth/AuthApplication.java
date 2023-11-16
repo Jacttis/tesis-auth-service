@@ -27,17 +27,17 @@ public class AuthApplication {
 		return new BCryptPasswordEncoder();
 	}
 
-	@Resource
-	private WorkerManager workerManager;
-	@Resource
-	private WorkerRepository workerRepository;
-
 	@Bean
 	public CommandLineRunner populateWorkers() {
 		return new WorkerPopulatorRunner();
 	}
 
 	public class WorkerPopulatorRunner implements CommandLineRunner {
+		@Resource
+		private WorkerManager workerManager;
+		@Resource
+		private WorkerRepository workerRepository;
+
 		@Override
 		public void run(String... args) throws Exception {
 			String[] nombresApellidos = {
