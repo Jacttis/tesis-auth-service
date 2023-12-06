@@ -41,43 +41,30 @@ public class AuthApplication {
 		@Override
 		public void run(String... args) throws Exception {
 			String[] nombresApellidos = {
-					"Juan Pérez", "María López", "Carlos Martínez", "Ana Rodríguez", "Pedro García",
-					"Laura Sánchez", "Miguel Fernández", "Sofía Ramírez", "Luis González", "Elena Díaz",
-					"Francisco Herrera", "Isabel Torres", "José Jiménez", "Carmen Vargas", "Javier Moreno",
-					"Raquel Castro", "Alejandro Ruiz", "Patricia Gómez", "Diego Molina", "Natalia Ortega",
-					"Ricardo Medina", "Adriana Silva", "Fernando Mendoza", "Beatriz Paredes", "Gabriel Jiménez",
-					"Monica Ramos", "Hugo Rojas", "Silvia Flores", "Alberto Varela", "Lorena Jiménez"
+					"Julian Acttis", "Leandro Moran", "Cachito Acttis", "Gully Moran", "Lorena Acttis",
+					"Marcela Cianci", "Muzza"
 			};
 
-			for(int i = 1; i<=5; i++){
-				if(!workerRepository.existsById("worker" + i + "@example.com"))
-					workerManager.createUser(new Worker("worker" + i + "@example.com", "asdasd", nombresApellidos[i-1], -38.7176522, -62.2654871, "Bahia Blanca", "29841291", "Gardener", new Date(2001,06,12)));
-			}
+			if(!workerRepository.existsById("julian@example.com"))
+				workerManager.createUser(new Worker("julian@example.com", "asdasd", nombresApellidos[0], -38.7176522, -62.2654871, "Bahia Blanca", "29841291", "Gardener", new Date(2001,06,12)));
 
-			for(int i = 6; i<=10; i++){
-				if(!workerRepository.existsById("worker" + i + "@example.com"))
-					workerManager.createUser(new Worker("worker" + i + "@example.com", "asdasd", nombresApellidos[i-1], -38.7176522, -62.2654871, "Bahia Blanca", "29112331", "Electrician", new Date(1980,07,10)));
-			}
+			if(!workerRepository.existsById("lean@example.com"))
+				workerManager.createUser(new Worker("lean@example.com", "asdasd", nombresApellidos[1], -38.7176522, -62.2654871, "Bahia Blanca", "29841291", "Plumber", new Date(2001,06,12)));
 
-			for(int i = 11; i<=15; i++){
-				if(!workerRepository.existsById("worker" + i + "@example.com"))
-					workerManager.createUser(new Worker("worker" + i + "@example.com", "asdasd", nombresApellidos[i-1], -38.7176522, -62.2654871, "Bahia Blanca", "298312291", "Painter", new Date(1986,02,10)));
-			}
+			if(!workerRepository.existsById("cacho@example.com"))
+				workerManager.createUser(new Worker("cacho@example.com", "asdasd", nombresApellidos[2], -38.7176522, -62.2654871, "Bahia Blanca", "29841291", "Bricklayer", new Date(2001,06,12)));
 
-			for(int i = 16; i<=20; i++){
-				if(!workerRepository.existsById("worker" + i + "@example.com"))
-					workerManager.createUser(new Worker("worker" + i + "@example.com", "asdasd", nombresApellidos[i-1], -38.8804693, -62.0744033, "Punta Alta", "29841291", "Bricklayer", new Date(1990,07,12)));
-			}
+			if(!workerRepository.existsById("gully@example.com"))
+				workerManager.createUser(new Worker("gully@example.com", "asdasd", nombresApellidos[3], -38.8804693, -62.0744033, "Punta Alta", "29841291", "Gardener", new Date(2001,06,12)));
 
-			for(int i = 21; i<=25; i++){
-				if(!workerRepository.existsById("worker" + i + "@example.com"))
-					workerManager.createUser(new Worker("worker" + i + "@example.com", "asdasd", nombresApellidos[i-1], -38.8804693, -62.0744033, "Punta Alta", "29841291", "Plumber", new Date(2002,03,10)));
-			}
+			if(!workerRepository.existsById("lore@example.com"))
+				workerManager.createUser(new Worker("lore@example.com", "asdasd", nombresApellidos[4], -38.7176522, -62.2654871, "Bahia Blanca", "29841291", "Gardener", new Date(2001,06,12)));
 
-			for(int i = 26; i<=30; i++){
-				if(!workerRepository.existsById("worker" + i + "@example.com"))
-					workerManager.createUser(new Worker("worker" + i + "@example.com", "asdasd", nombresApellidos[i-1], -38.8804693, -62.0744033, "Punta Alta", "29841291", "Tutor", new Date(1970,02,11)));
-			}
+			if(!workerRepository.existsById("marcela@example.com"))
+				workerManager.createUser(new Worker("marcela@example.com", "asdasd", nombresApellidos[5], -38.8804693, -62.0744033, "Punta Alta", "29841291", "Gardener", new Date(2001,06,12)));
+
+			if(!workerRepository.existsById("muzza@example.com"))
+				workerManager.createUser(new Worker("muzza@example.com", "asdasd", nombresApellidos[6], -38.8804693, -62.0744033, "Punta Alta", "29841291", "Singer", new Date(2001,06,12)));
 
 		}
 	}
